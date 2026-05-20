@@ -10,7 +10,9 @@
 <body class="create-ticket-page">
 
     <div class="navbar">
-        <h1 class="logo">TicketFlow</h1>
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <h1 class="logo">TicketFlow</h1>
+        </a>
 
         <div class="nav-actions">
             <form action="{{ url_for('logout') }}" method="POST">
