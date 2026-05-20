@@ -23,25 +23,49 @@
     <div class="page">
         <div class="tiles">
 
+            {% if current_user.role == "admin" %}
+
+            <div class="tile">
+                <h2>Admin Dashboard</h2>
+                <p>Review, manage, and update all support tickets.</p>
+                <a href="{{ url_for('admin_dashboard') }}">Open Admin Dashboard</a>
+            </div>
+
+            {% else %}
+
             <div class="tile">
                 <h2>Dashboard</h2>
                 <p>View, edit, and track your support tickets.</p>
                 <a href="{{ url_for('dashboard') }}">Open Dashboard</a>
-                
             </div>
+
+            {% endif %}
+
 
             <div class="tile">
                 <h2>Create Ticket</h2>
-                <p>Submit a new request for support or review.</p>
+
+                {% if current_user.role == "admin" %}
+                    <p>Submit a new internal request or support ticket.</p>
+                {% else %}
+                    <p>Submit a new request for support or review.</p>
+                {% endif %}
+
                 <a href="{{ url_for('create_ticket') }}">New Ticket</a>
             </div>
 
+
             <div class="tile">
                 <h2>Account Details</h2>
-                <p>View your account information and user role.</p>
-                <a href="{{ url_for('profile') }}">View Profile</a>
-            </div>            
 
+                {% if current_user.role == "admin" %}
+                    <p>View your account information and admin role.</p>
+                {% else %}
+                    <p>View your account information and user role.</p>
+                {% endif %}
+
+                <a href="{{ url_for('profile') }}">View Profile</a>
+            </div>
 
         </div>
     </div>
