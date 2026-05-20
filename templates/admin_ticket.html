@@ -4,55 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Ticket View</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    {% with messages = get_flashed_messages() %}
+
+<body class="dashboard-page">
+
+    <div class="navbar">
+
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <h1 class="logo">TicketFlow</h1>
+        </a>
+
+        <div class="nav-actions">
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit">Sign Out</button>
+            </form>
+        </div>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="flash">
-                {{ messages[0] }}
-            </div>
+            {% for category, message in messages %}
+                <div class="{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
     {% endwith %}
 
     <div class="page">
-        <div class="card">
-            <div class="topbar">
-                <h1>Ticket Details</h1>
 
-                <a href="{{ url_for('admin_dashboard') }}">
-                    <button type="button">Back</button>
+        <div class="dashboard-card">
+
+            <div class="dashboard-actions">
+
+                <a href="{{ url_for('admin_dashboard') }}"
+                   class="btn-dash-secondary">
+                    ← Back
                 </a>
+
             </div>
 
-            <div class="ticket-box">
-                <h2>{{ current_ticket.title }}</h2>
-                <p><strong>Description:</strong> {{ current_ticket.body }}</p>
-                <p><strong>Priority:</strong> {{ current_ticket.priority }}</p>
-                <p><strong>Submitted by:</strong> {{ current_ticket.author.username }}</p>
-                <p><strong>Email:</strong> {{ current_ticket.author.email }}</p>
-                <p><strong>Current Status:</strong> {{ current_ticket.status }}</p>
+            <div class="ticket-card">
 
-                <form method="POST" action="{{ url_for('update_status', ticket_id=current_ticket.id) }}">
-                    <label for="status">Update Status</label>
+                <div class="ticket-card-header">
 
-                    <select name="status" id="status">
-                        <option value="pending" {{ 'selected' if current_ticket.status == 'pending' else '' }}>
-                            Pending
-                        </option>
-                        <option value="in-progress" {{ 'selected' if current_ticket.status == 'in-progress' else '' }}>
-                            In Progress
-                        </option>
-                        <option value="completed" {{ 'selected' if current_ticket.status == 'completed' else '' }}>
-                            Completed
-                        </option>
-                    </select>
-                
+                    <div>
 
-                    <button type="submit">Update Status</button>
-                </form>
+                        <h2>Ticket Information</h2>
+
+                        <p>
+                            Review ticket information and update status.
+                        </p>
+
+                    </div>
+
+                    <form method="POST"
+                          action="{{ url_for('update_status',
+                          ticket_id=current_ticket.id) }}"
+                          class="status-inline-form">
+
+                        <select name="status">
+
+                            <option value="pending"
+                            {% if current_ticket.status == "pending" %}
+                            selected
+                            {% endif %}>
+                                Pending
+                            </option>
+
+                            <option value="in-progress"
+                            {% if current_ticket.status == "in-progress" %}
+                            selected
+                            {% endif %}>
+                                In Progress
+                            </option>
+
+                            <option value="completed"
+                            {% if current_ticket.status == "completed" %}
+                            selected
+                            {% endif %}>
+                                Completed
+                            </option>
+
+                        </select>
+
+                        <button type="submit"
+                                class="btn-dash-primary">
+                            Update
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <div class="ticket-section">
+                    <label>User</label>
+                    <p>{{ current_ticket.author.username }}</p>
+                </div>
+
+                <div class="ticket-section">
+                    <label>Email</label>
+                    <p>{{ current_ticket.author.email }}</p>
+                </div>
+
+                <div class="ticket-section">
+                    <label>Title</label>
+                    <p>{{ current_ticket.title }}</p>
+                </div>
+
+                <div class="ticket-section">
+                    <label>Description</label>
+                    <p>{{ current_ticket.body }}</p>
+                </div>
+
+                <div class="ticket-meta">
+
+                    <div class="meta-box">
+                        <label>Priority</label>
+                        <p>{{ current_ticket.priority }}</p>
+                    </div>
+
+                    <div class="meta-box">
+                        <label>Status</label>
+                        <p>{{ current_ticket.status }}</p>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
 </body>
 </html>

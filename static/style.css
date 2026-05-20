@@ -280,3 +280,85 @@ button:hover {
 .logo-link {
     text-decoration: none;
 }
+
+.ticket-section {
+    margin-bottom: 18px;
+}
+
+.ticket-section label,
+.meta-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+}
+
+.ticket-section p,
+.meta-box p {
+    margin: 0;
+    color: #222;
+}
+
+.ticket-meta {
+    display: flex;
+    gap: 40px;
+    margin: 24px 0;
+}
+
+.ticket-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.ticket-card-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+.ticket-card-header p {
+    margin: 0;
+    color: #666;
+}
+
+
+.status-form {
+    margin-top: 24px;
+    max-width: 320px;
+}
+
+.status-form .form-group {
+    margin-bottom: 14px;
+}
+
+.status-form select {
+    width: 100%;
+}
+
+.ticket-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.status-inline-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.status-inline-form select {
+    min-width: 180px;
+}
