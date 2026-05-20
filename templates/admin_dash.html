@@ -4,56 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="flash">
-                {{ messages[0] }}
-                </div>
-            {% endif %}
-            {% endwith %}          
-    <div class="page">
-        <div class="card">
+<body class="dashboard-page">
 
+    <div class="navbar">
+        <h1 class="logo">TicketFlow</h1>
 
-            <!-- TOPBAR -->
-        <div class="topbar">
-            <h1>Admin Ticket Console</h1>
-
-            <div style="display: flex; gap: 10px;">
-                <a href="{{ url_for('create_ticket') }}">
-                    <button type="button">+ Create Ticket</button>
-                </a>
-
-                <form action="{{ url_for('logout') }}" method="POST">
-                    <button type="submit">Sign Out</button>
-                </form>
-            </div>
-        </div>
-
-        <h2 class="section-title">All Tickets</h2>
-
-        {% for ticket in tickets %}
-        <div class="ticket-box">
-            <p><strong>User:</strong> {{ ticket.author.username }}</p>
-            <p><strong>Email:</strong> {{ ticket.author.email }}</p>
-            <h3>{{ ticket.title }}</h3>
-            <p>{{ ticket.body }}</p>
-
-            <p>Priority: {{ ticket.priority }}</p>
-            <p>Status: {{ ticket.status }}</p>
-
-            <a href="{{ url_for('admin_view', ticket_id=ticket.id) }}">
-                <button type="button">See More</button>
-            </a>
-
-        </div>
-        {% endfor %}
-
+        <div class="nav-actions">
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit">Sign Out</button>
+            </form>
         </div>
     </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="page">
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-actions">
+                <a href="{{ url_for('home') }}" class="btn-dash-secondary">
+                    ← Back
+                </a>
+
+                <a href="{{ url_for('create_ticket') }}" class="btn-dash-primary">
+                    + Create Ticket
+                </a>
+            </div>
+
+            <div class="dashboard-header">
+                <h1>Admin Ticket Console</h1>
+                <p>View and manage all submitted tickets.</p>
+            </div>
+
+            <h2 class="section-title">All Tickets</h2>
+
+            <div class="ticket-list">
+
+                {% for ticket in tickets %}
+
+                    <div class="ticket-card">
+
+                        <p><strong>User:</strong> {{ ticket.author.username }}</p>
+                        <p><strong>Email:</strong> {{ ticket.author.email }}</p>
+
+                        <h3>{{ ticket.title }}</h3>
+
+                        <p>{{ ticket.body }}</p>
+
+                        <div class="ticket-meta">
+                            <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+                            <p><strong>Status:</strong> {{ ticket.status }}</p>
+                        </div>
+
+                        <div class="ticket-actions">
+
+                            <a href="{{ url_for('admin_view', ticket_id=ticket.id) }}" class="btn-dash-secondary">
+                                See More
+                            </a>
+
+                            <form action="{{ url_for('delete_ticket', ticket_id=ticket.id) }}" method="POST">
+                                <button type="submit" class="btn-dash-delete">
+                                    Delete
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
