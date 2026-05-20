@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+
+<body class="dashboard-page">
 
     <div class="navbar">
         <a href="{{ url_for('home') }}" class="logo-link">
@@ -21,8 +23,41 @@
     </div>
 
     <div class="page">
-        <h1>Profile</h1>
-        <p>This page will display user account details.</p>
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-actions">
+                <a href="{{ url_for('home') }}" class="btn-dash-secondary">
+                    ← Back
+                </a>
+            </div>
+
+            <div class="dashboard-header">
+                <h1>Profile</h1>
+                <p>View your account information and role.</p>
+            </div>
+
+            <div class="ticket-card">
+
+                <div class="ticket-section">
+                    <label>Username</label>
+                    <p>{{ current_user.username }}</p>
+                </div>
+
+                <div class="ticket-section">
+                    <label>Email</label>
+                    <p>{{ current_user.email }}</p>
+                </div>
+
+                <div class="ticket-section">
+                    <label>Role</label>
+                    <p>{{ current_user.role }}</p>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 </body>
