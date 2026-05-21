@@ -248,12 +248,27 @@ def delete_ticket(ticket_id):
 @app.route("/admin")
 @login_required
 def admin_dashboard():
+
     # Restrict admin dashboard access to admins only
     if current_user.role != "admin":
         abort(403)
 
-    tickets = Request.query.order_by(Request.id.desc()).all()
-    return render_template("admin_dash.html", tickets=tickets)
+    priority_order = {
+        "high": 1,
+        "medium": 2,
+        "low": 3
+    }
+
+    tickets = Request.query.all()
+
+    tickets.sort(
+        key=lambda ticket: priority_order[ticket.priority]
+    )
+
+    return render_template(
+            "admin_dash.html",
+            tickets=tickets
+        )
 
 
 @app.route("/view/<int:ticket_id>")
