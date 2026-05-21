@@ -130,11 +130,28 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
     if request.method == "POST":
+
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
         confirm = request.form["confirm"]
+
+        # Prevent empty fields
+        if not username or not email or not password:
+            flash("Please fill in all fields.", "error")
+            return redirect(url_for("register"))
+
+        # Username length validation
+        if len(username) < 3:
+            flash("Username must be at least 3 characters.", "error")
+            return redirect(url_for("register"))
+
+        # Password length validation
+        if len(password) < 8:
+            flash("Password must be at least 8 characters.", "error")
+            return redirect(url_for("register"))
 
         # Make sure password and confirmation match
         if password != confirm:
@@ -153,7 +170,11 @@ def register():
             flash("Email already exists.", "error")
             return redirect(url_for("register"))
 
-        hashed_pw = generate_password_hash(password, method="pbkdf2:sha256")
+        hashed_pw = generate_password_hash(
+            password,
+            method="pbkdf2:sha256"
+        )
+
         new_user = User(
             username=username,
             email=email,
@@ -163,11 +184,14 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        flash("Account created successfully. Please log in.", "success")
+        flash(
+            "Account created successfully. Please log in.",
+            "success"
+        )
+
         return redirect(url_for("login"))
 
     return render_template("register.html")
-
 
 # =========================
 # User Dashboard Routes
