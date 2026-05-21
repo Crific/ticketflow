@@ -1,126 +1,241 @@
-# Operations Request Portal
+# TicketFlow
 
-## Overview
-Developed a full-stack operations request portal for internal task management with role-based access, request assignment, status tracking, and dashboard reporting using Flask, Python, and SQL.
+A modern support ticket management web application built with Flask.
 
----
-
-## Project Goal
-Build a web application where:
-- Users can submit and track requests
-- Operators/Admins can manage and update requests
-- The system reflects a real internal operations workflow
+TicketFlow is a full-stack CRUD web application designed for managing support requests, internal operations tickets, and workflow tracking through a clean role-based system.
 
 ---
 
-## Core Features (MVP)
-- [x] User registration and login/logout
-- [x] Session-based authentication
-- [ ] Create request (ticket)
-- [ ] View user-specific requests
-- [ ] Edit request
-- [ ] Delete request
-- [ ] Status tracking (Pending, In Progress, Resolved)
-- [ ] Protected dashboard page
+# Features
+
+## Authentication System
+
+* User registration and login
+* Secure password hashing using Werkzeug
+* Session-based authentication with Flask-Login
+* Logout protection using POST requests
+* Input validation and duplicate account prevention
+
+## User Dashboard
+
+* Create support tickets
+* Edit existing tickets
+* Delete tickets
+* Track ticket statuses
+* View ticket priority levels
+* Personalized dashboard experience
+
+## Admin Dashboard
+
+* View all submitted tickets
+* Update ticket statuses
+* Priority-based ticket sorting
+* Separate admin-only dashboard access
+* Manage internal workflow requests
+
+## Ticket Management
+
+* Ticket title and description system
+* Priority levels:
+
+  * High
+  * Medium
+  * Low
+* Status tracking:
+
+  * Pending
+  * In Progress
+  * Completed
+* Organized ticket card layout
+
+## UI / UX
+
+* Responsive dashboard layout
+* Clean modern interface
+* Flash message feedback system
+* Reusable dashboard card structure
+* Consistent styling across pages
+* Role-based homepage rendering
 
 ---
 
-## Stretch Features (Optional)
-- [ ] Role-based access (Admin, Operator, Viewer)
-- [ ] Request assignment
-- [ ] Priority levels
-- [ ] Dashboard summary (counts by status)
-- [ ] Search and filters
+# Tech Stack
+
+## Backend
+
+* Python
+* Flask
+* Flask-Login
+* Flask-SQLAlchemy
+* SQLite
+
+## Frontend
+
+* HTML
+* CSS
+* Jinja2 Templates
+
+## Development Tools
+
+* VS Code
+* Git
+* GitHub
 
 ---
 
-## Tech Stack
-- Backend: Flask (Python)
-- Database: SQLite (SQLAlchemy)
-- Frontend: HTML, CSS
-- Authentication: Flask-Login + password hashing
-
----
-
-## Data Models
-
-### User
-- id
-- username
-- email
-- password_hash
-- role
-
-### Request
-- id
-- title
-- description
-- status
-- priority
-- created_by
-- assigned_to (optional)
-- created_at
-
----
-
-## Development Plan
-
-### Phase 1
-- [x] Set up database (SQLAlchemy)
-- [x] Create User model
-- [x] Create Request model
-- [x] Run `db.create_all()`
-
-### Phase 2
-- [x] Build registration
-- [x] Build login/logout
-- [x] Implement sessions
-- [x] Protect routes
-
-### Phase 3
-- [ ] Create request (form → DB)
-- [ ] Display requests
-- [ ] Edit + delete requests
-
-### Phase 4
-- [ ] Add status updates
-- [ ] Improve UI
-- [ ] Fix bugs
-
-### Phase 5
-- [ ] Final polish
-- [ ] Clean code
-- [ ] Prepare for portfolio
-
----
-
-## Key Concepts Demonstrated
-- Authentication and session management
-- CRUD operations
-- Relational database design
-- Role-based access (if implemented)
-- Workflow/state management
-
----
-
-## Testing
-- Verified registration works with valid input
-- Login correctly displays error when logging in with incorrect password
-
----
-
-## Future Features
-- Admin approval workflow for role upgrades
-- Role request system (user → admin approval)
-- Email notifications for request updates
-- Dashboard analytics (request trends, load, etc.)
-
----
-
-## How to Run
+# Project Structure
 
 ```bash
-git clone <your-repo-link>
-cd OpsPortal
+TicketFlow/
+│
+├── app.py
+├── requirements.txt
+├── users.db
+│
+├── static/
+│   ├── style.css
+│   └── auth.css
+│
+├── templates/
+│   ├── home.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── admin_dash.html
+│   ├── admin_ticket.html
+│   ├── create_ticket.html
+│   ├── edit_ticket.html
+│   └── profile.html
+│
+└── README.md
+```
+
+---
+
+# Database Models
+
+## User
+
+| Field    | Type    |
+| -------- | ------- |
+| id       | Integer |
+| username | String  |
+| email    | String  |
+| password | String  |
+| role     | String  |
+
+## Request
+
+| Field    | Type    |
+| -------- | ------- |
+| id       | Integer |
+| user_id  | Integer |
+| title    | String  |
+| body     | Text    |
+| priority | String  |
+| status   | String  |
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/yourusername/ticketflow.git
+cd ticketflow
+```
+
+## Create Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Mac/Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+# Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+---
+
+# Run Application
+
+```bash
 python app.py
+```
+
+Application will run on:
+
+```bash
+http://127.0.0.1:5000
+```
+
+---
+
+# Future Improvements
+
+* Ticket replies/comments
+* File attachments
+* Search and filtering
+* Email notifications
+* Analytics dashboard
+* API integration
+* Dark mode
+* Deployment pipeline
+
+---
+
+# Screenshots
+
+Add screenshots here after deployment.
+
+Examples:
+
+* Login Page
+* Dashboard
+* Admin Dashboard
+* Ticket View
+* Ticket Creation Form
+
+---
+
+# Learning Goals
+
+This project was built to strengthen:
+
+* Full-stack web development fundamentals
+* CRUD application architecture
+* Authentication systems
+* Database relationships
+* Flask routing and templates
+* UI structure and responsive layouts
+* Role-based access control
+* Real-world project organization
+
+---
+
+# Author
+
+Justin Isidro
+
+GitHub: [https://github.com/Crific](https://github.com/Crific)
+
+---
+
+# License
+
+This project is open-source and available for learning and portfolio purposes.
