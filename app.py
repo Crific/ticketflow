@@ -175,9 +175,7 @@ def register():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    # Redirect admins to the admin dashboard
-    if current_user.role == "admin":
-        return redirect(url_for("admin_dashboard"))
+
 
     # Regular users only see their own tickets
     tickets = current_user.requests

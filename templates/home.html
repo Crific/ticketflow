@@ -4,77 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicketFlow</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-    
     <div class="navbar">
+
         <h1 class="logo">TicketFlow</h1>
 
         <div class="nav-actions">
-                <form action="{{ url_for('logout') }}" method="POST">
-                    <button type="submit">Sign Out</button>
-                </form>
+
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit">Sign Out</button>
+            </form>
+
         </div>
+
     </div>
 
     <div class="home-banner">
-        <h1>Welcome back, {{ current_user.username }} 👋</h1>
+
+        <h1>
+            Welcome back, {{ current_user.username }} 👋
+        </h1>
 
         <p>
             Manage tickets, track requests, and stay organized.
         </p>
-    </div>  
-    
+
+    </div>
+
     <div class="page">
+
         <div class="tiles">
 
             {% if current_user.role == "admin" %}
 
             <div class="tile">
+
                 <h2>Admin Dashboard</h2>
-                <p>Review, manage, and update all support tickets.</p>
-                <a href="{{ url_for('admin_dashboard') }}">Open Admin Dashboard</a>
+
+                <p>
+                    Review, manage, and update all support tickets.
+                </p>
+
+                <a href="{{ url_for('admin_dashboard') }}">
+                    Open Admin Dashboard
+                </a>
+
+            </div>
+
+            <div class="tile">
+
+                <h2>My Tickets</h2>
+
+                <p>
+                    View, edit, and manage your personal support tickets.
+                </p>
+
+                <a href="{{ url_for('dashboard') }}">
+                    Open My Dashboard
+                </a>
+
             </div>
 
             {% else %}
 
             <div class="tile">
+
                 <h2>Dashboard</h2>
-                <p>View, edit, and track your support tickets.</p>
-                <a href="{{ url_for('dashboard') }}">Open Dashboard</a>
+
+                <p>
+                    View, edit, and track your support tickets.
+                </p>
+
+                <a href="{{ url_for('dashboard') }}">
+                    Open Dashboard
+                </a>
+
             </div>
 
             {% endif %}
 
-
             <div class="tile">
+
                 <h2>Create Ticket</h2>
 
                 {% if current_user.role == "admin" %}
-                    <p>Submit a new internal request or support ticket.</p>
+
+                    <p>
+                        Submit a new internal request or support ticket.
+                    </p>
+
                 {% else %}
-                    <p>Submit a new request for support or review.</p>
+
+                    <p>
+                        Submit a new request for support or review.
+                    </p>
+
                 {% endif %}
 
-                <a href="{{ url_for('create_ticket') }}">New Ticket</a>
+                <a href="{{ url_for('create_ticket') }}">
+                    New Ticket
+                </a>
+
             </div>
 
-
             <div class="tile">
+
                 <h2>Account Details</h2>
 
                 {% if current_user.role == "admin" %}
-                    <p>View your account information and admin role.</p>
+
+                    <p>
+                        View your account information and admin role.
+                    </p>
+
                 {% else %}
-                    <p>View your account information and user role.</p>
+
+                    <p>
+                        View your account information and user role.
+                    </p>
+
                 {% endif %}
 
-                <a href="{{ url_for('profile') }}">View Profile</a>
+                <a href="{{ url_for('profile') }}">
+                    View Profile
+                </a>
+
             </div>
 
         </div>
+
     </div>
 
 </body>
