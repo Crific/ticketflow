@@ -111,6 +111,7 @@ TicketFlow/
 │   └── profile.html
 │
 └── README.md
+```
 
 # Database Models
 
