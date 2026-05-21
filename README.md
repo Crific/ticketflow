@@ -111,3 +111,75 @@ TicketFlow/
 │   └── profile.html
 │
 └── README.md
+
+# Database Models
+
+## User
+
+| Field | Type |
+|---|---|
+| id | Integer |
+| username | String |
+| email | String |
+| password | String |
+| role | String |
+
+## Request
+
+| Field | Type |
+|---|---|
+| id | Integer |
+| user_id | Integer |
+| title | String |
+| body | Text |
+| priority | String |
+| status | String |
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/yourusername/ticketflow.git
+cd ticketflow
+```
+
+## Create Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Mac/Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+# Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Run Application
+
+```bash
+python app.py
+```
+
+Application will run on:
+
+```bash
+http://127.0.0.1:5000
+```
